@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<body>
+<div th:insert="~{fragments/navbar.html :: navbar}"></div>
+<br>
+<div class="text-center">
+    <h1 class="pb-2 border-bottom" >Equipos</h1>
+    <div class="alert alert-primary" role="alert" th:if="${msg != null}" th:text="${msg}">
+    </div>
+    <div class="d-flex mt-3 mb-4">
+        <a class="btn btn-primary" th:href="@{'/equipos/nuevoEquipo'}">Nuevo equipo</a>
+    </div>
+    <table class="table datatable">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo </th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Num serie</th>
+            <th scope="col">Sitio</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="equipos, info : ${listaEquipos}">
+            <th scope="row" th:text="${info.index+1}">1</th>
+            <td th:text="${equipos.devicename}"></td>
+            <td th:text="${equipos.devicetype}"></td>
+            <td th:text="${equipos.model}"></td>
+            <td th:text="${equipos.serialnumber}"></td>
+            <td th:text="${equipos.site.sitename}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="@{'/equipos/editarEquipo?id=' + ${equipos.deviceid}}">Editar</a>
+                <a class="btn btn-primary" th:href="@{'/equipos/borrarEquipo?id=' + ${equipos.deviceid}}">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</html>
